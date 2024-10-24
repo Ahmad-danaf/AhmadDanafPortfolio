@@ -41,8 +41,8 @@ export const PROGRAMMING_LANGUAGES = [
   {
     skill_name: "Python",
     image: "python.png",
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
   },
   {
     skill_name: "Django",
@@ -90,15 +90,16 @@ export const WEB_DEVELOPMENT = [
     width: 80,
     height: 80,
   },
-  {
-    skill_name: "JavaScript",
-    image: "js.png",
-    width: 65,
-    height: 65,
-  },
+
   {
     skill_name: "Bootstrap",
     image: "bootstrap.png",
+    width: 80,
+    height: 80,
+  },
+  {
+    skill_name: "JavaScript",
+    image: "js.png",
     width: 80,
     height: 80,
   },
@@ -110,7 +111,7 @@ export const WEB_DEVELOPMENT = [
   },
   {
     skill_name: "Express.js",
-    image: "Express.png",
+    image: "express.png",
     width: 80,
     height: 80,
   },
@@ -138,14 +139,14 @@ export const DATABASES = [
   {
     skill_name: "SQLite",
     image: "sqlite.png",
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
   },
   {
     skill_name: "MySQL",
     image: "mysql.png",
-    width: 70,
-    height: 70,
+    width: 90,
+    height: 90,
   },
   {
     skill_name: "PostgreSQL",
