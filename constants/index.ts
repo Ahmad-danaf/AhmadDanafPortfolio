@@ -5,23 +5,19 @@ import {
   RxInstagramLogo,
   RxTwitterLogo,
   RxLinkedinLogo,
+  RxMail
 } from "react-icons/rx";
 
 export const SOCIALS = [
   {
-    name: "Instagram",
-    icon: RxInstagramLogo,
-    link: "https://instagram.com",
+    name: "LinkedIn",
+    icon: RxLinkedinLogo, 
+    link: "https://www.linkedin.com/in/ahmad-danaf/",
   },
   {
-    name: "Facebook",
-    icon: FaFacebook,
-    link: "https://facebook.com",
-  },
-  {
-    name: "Twitter",
-    icon: RxTwitterLogo,
-    link: "https://twitter.com",
+    name: "GitHub",
+    icon: RxGithubLogo, 
+    link: "https://github.com/Ahmad-danaf",
   },
 ] as const;
 
@@ -229,6 +225,11 @@ export const PROJECTS = [
       'SpaceCodey is a web application designed for astrophotographers and space enthusiasts. Built using Django, it offers tools for tracking celestial events, planning astrophotography sessions, and exploring astronomy-related topics. Features include user authentication, NASA APOD integration, real-time ISS tracking, weather comparison for photography, and more. The sleek dark-themed design is crafted for space lovers.',
     image: "/projects/spacecodey.png",
     link: "https://www.spacecodey.com/",
+    buttons: [
+      { label: "Site Link", url: "https://www.spacecodey.com/" },
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/SpaceCodey" },
+    ]
+    
   },
   {
     title: "Volunteen",
@@ -236,13 +237,21 @@ export const PROJECTS = [
       'Volunteen is a platform aimed at encouraging youth involvement in community service through a points-based system. Built with a focus on task management and mentor-child interaction, it helps track volunteering efforts, rewards achievements, and fosters learning. The platform integrates features for mentorship guidance, task assignments, and progress tracking, promoting community engagement and development.',
     image: "/projects/volunteen.png", 
     link: "https://www.linkedin.com/company/volunteen2024", 
+    buttons: [
+      { label: "Site Link", url: "https://www.volunteen.site/" },
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/Volunteen" },
+      { label: "LinkedIn", url: "https://www.linkedin.com/company/volunteen2024" }
+    ]
   },
   {
     title: "Sheet-Cell Project",
     description:
       'The "Sheet-Cell Project" is an innovative approach to creating a custom-built spreadsheet engine. Inspired by platforms like Google Sheets and Excel, this project is developed in Java across multiple phases: a console-based interface, a JavaFX GUI, and a client-server architecture. It explores complex functionalities like cell-based formulas, dynamic updates, multi-user collaboration, and more.',
     image: "/projects/sheet-cell.png",
-    link: "https://github.com/Ahmad-danaf/Sheet-Cell", 
+    link: "https://github.com/Ahmad-danaf/Sheet-Cell",
+    buttons: [
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/Sheet-Cell" },
+    ]
   },
   {
     title: "Flight Deal Finder",
@@ -250,6 +259,9 @@ export const PROJECTS = [
       'Automates searching for flight deals and sends email alerts for cheap flights. This Python project leverages APIs like Tequila and Sheety to track flight prices and automate notifications, making travel planning easier and more affordable.',
     image: "/projects/flight-deal-finder.png",
     link: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub",
+    buttons: [
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
+    ]
   },
   {
     title: "Automated Amazon Price Tracker",
@@ -257,6 +269,9 @@ export const PROJECTS = [
       'Tracks Amazon product prices and sends notifications when prices drop. This project highlights my experience with web automation and email alerts using Python, making online shopping more efficient.',
     image: "/projects/amazon-price-tracker.png",
     link: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub",
+    buttons: [
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
+    ]
   },
   {
     title: "Turtle Crossing Game",
@@ -264,6 +279,9 @@ export const PROJECTS = [
       'A fun, interactive game where players help a turtle cross the road while avoiding cars. Built using Python, this game gets progressively more difficult, showcasing my skills in game development and logic implementation.',
     image: "/projects/turtle-crossing.png",
     link: "https://github.com/Ahmad-danaf/GameDev",
+    buttons: [
+      { label: "Source Code", url: "https://github.com/Ahmad-danaf/GameDev" },
+    ]
   },
 ] as const;
 
@@ -273,39 +291,14 @@ export const FOOTER_DATA = [
     title: "Community",
     data: [
       {
-        name: "YouTube",
-        icon: FaYoutube,
-        link: "https://youtube.com",
+        name: "LinkedIn",
+        icon: RxLinkedinLogo, 
+        link: "https://www.linkedin.com/in/ahmad-danaf/",
       },
       {
         name: "GitHub",
-        icon: RxGithubLogo,
-        link: "https://github.com",
-      },
-      {
-        name: "Discord",
-        icon: RxDiscordLogo,
-        link: "https://discord.com",
-      },
-    ],
-  },
-  {
-    title: "Social Media",
-    data: [
-      {
-        name: "Instagram",
-        icon: RxInstagramLogo,
-        link: "https://instagram.com",
-      },
-      {
-        name: "Twitter",
-        icon: RxTwitterLogo,
-        link: "https://twitter.com",
-      },
-      {
-        name: "Linkedin",
-        icon: RxLinkedinLogo,
-        link: "https://linkedin.com",
+        icon: RxGithubLogo, 
+        link: "https://github.com/Ahmad-danaf",
       },
     ],
   },
@@ -313,23 +306,19 @@ export const FOOTER_DATA = [
     title: "About",
     data: [
       {
-        name: "Become Sponsor",
+        name: "About Me",
         icon: null,
-        link: "https://youtube.com",
-      },
-      {
-        name: "Learning about me",
-        icon: null,
-        link: "https://example.com",
+        link: "https://yourwebsite.com/about", // link to an About Me section or page
       },
       {
         name: "Contact Me",
         icon: null,
-        link: "mailto:contact@example.com",
+        link: "mailto:ahmad.danf@gmail.com",
       },
     ],
   },
 ] as const;
+
 
 export const NAV_LINKS = [
   {

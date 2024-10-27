@@ -18,6 +18,7 @@ export const Projects = () => {
           title={project.title}
           description={project.description}
           link={project.link}
+          buttons={[...project.buttons]}
         />
       ))}
     </div>
@@ -29,7 +30,8 @@ export const Projects = () => {
         title={project.title}
         description={project.description}
         link={project.link}
-      />
+        buttons={[...project.buttons]}
+        />
     ))}
   </div>
     </section>
