@@ -5,8 +5,9 @@ import {
   RxInstagramLogo,
   RxTwitterLogo,
   RxLinkedinLogo,
-  RxMail
 } from "react-icons/rx";
+import { FaFilePdf } from "react-icons/fa"; 
+
 
 export const SOCIALS = [
   {
@@ -18,6 +19,11 @@ export const SOCIALS = [
     name: "GitHub",
     icon: RxGithubLogo, 
     link: "https://github.com/Ahmad-danaf",
+  },
+  {
+    name: "Resume",
+    icon: FaFilePdf,
+    link: "/resume.pdf", // Make sure your resume is stored in the public folder as resume.pdf
   },
 ] as const;
 
