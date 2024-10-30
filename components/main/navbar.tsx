@@ -49,7 +49,7 @@ export const Navbar = () => {
 
             {/* Resume Link */}
             <Link
-              href="/resume.pdf" // Ensure this PDF is in the public folder or a valid URL
+              href="/AhmadDanaf_Resume.pdf"
               target="_blank"
               rel="noreferrer noopener"
               className="cursor-pointer hover:text-[rgb(112,66,248)] transition"

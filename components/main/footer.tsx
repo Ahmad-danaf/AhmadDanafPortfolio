@@ -17,7 +17,8 @@ export const Footer = () => {
                 <Link
                   key={`${column.title}-${name}`}
                   href={link}
-                  target="_blank"
+                  // Conditionally add target="_blank" only for external links
+                  target={name === "About Me" ? undefined : "_blank"}
                   rel="noreferrer noopener"
                   className="flex flex-row items-center my-[15px]"
                 >
@@ -25,6 +26,7 @@ export const Footer = () => {
                   <span className="text-[15px] ml-[6px]">{name}</span>
                 </Link>
               ))}
+
             </div>
           ))}
         </div>

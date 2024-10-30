@@ -23,7 +23,7 @@ export const SOCIALS = [
   {
     name: "Resume",
     icon: FaFilePdf,
-    link: "/resume.pdf", // Make sure your resume is stored in the public folder as resume.pdf
+    link: "/AhmadDanaf_Resume.pdf", 
   },
 ] as const;
 
@@ -314,7 +314,7 @@ export const FOOTER_DATA = [
       {
         name: "About Me",
         icon: null,
-        link: "https://yourwebsite.com/about", // link to an About Me section or page
+        link: "#about-me", 
       },
       {
         name: "Contact Me",
