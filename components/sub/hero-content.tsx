@@ -41,14 +41,14 @@ export const HeroContent = () => {
         </motion.div>
 
 
-        <motion.p
-          variants={slideInFromLeft(0.8)}
-          className="text-sm md:text-lg text-white my-3 md:my-5 max-w-[300px] md:max-w-[600px] shadow-md"
-        >
-          I'm in my final year of a Computer Science degree, diving into the world of software engineering with a strong interest in backend development. My studies have equipped me with skills in various programming languages, algorithms, and software design principles, and I'm excited to bring these into real-world projects.
-          <br />
-          Outside of coding, I'm an amateur astrophotographer, blending my love for technology and the cosmos.
-        </motion.p>
+      <motion.p
+      variants={slideInFromLeft(0.8)}
+      className="text-sm md:text-lg text-white my-3 md:my-5 max-w-[300px] md:max-w-[600px] shadow-md"
+    >
+      I&apos;m in my final year of a Computer Science degree, diving into the world of software engineering with a strong interest in backend development. My studies have equipped me with skills in various programming languages, algorithms, and software design principles, and I&apos;m excited to bring these into real-world projects.
+      <br />
+      Outside of coding, I&apos;m an amateur astrophotographer, blending my love for technology and the cosmos.
+    </motion.p>
 
         <motion.a
           href="#projects"
