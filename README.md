@@ -1,6 +1,6 @@
 # My Portfolio Website
 
-Welcome to my personal portfolio, showcasing my journey and projects as a **Software Engineer**. This website highlights my skills, experience, and notable projects built using modern technologies.
+Welcome to my personal portfolio, showcasing my journey and projects as a **Software Engineer**. This site highlights my skills, experience, and key projects using modern technologies. [Visit the live site here](https://ahmad-danaf-portfolio.vercel.app).
 
 ## Features
 - **Responsive Design**: Optimized for all devices.
@@ -21,8 +21,9 @@ Welcome to my personal portfolio, showcasing my journey and projects as a **Soft
 - **[Turtle Crossing Game](https://github.com/Ahmad-danaf/GameDev)**: A fun Python game with increasing difficulty.
 
 ## Deployment
-This portfolio is currently in development and will be deployed soon using Vercel. Check back later for the live version!
+This portfolio is live! Check it out here: [Live Portfolio](https://ahmad-danaf-portfolio.vercel.app/)
 
+Deployed using Vercel.
 ---
 
 ### Acknowledgements
