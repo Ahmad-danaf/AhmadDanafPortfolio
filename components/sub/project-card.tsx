@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { ArrowOut } from "@/components/sub/marks";
+
 type ProjectCardProps = {
   src: string;
   title: string;
@@ -31,18 +33,18 @@ export const ProjectCard = ({
       <div className="relative p-4">
         <h1 className="text-2xl font-semibold text-white">{title}</h1>
         <p className="mt-2 text-gray-300">{description}</p>
-        <div className="flex gap-2 mt-4 flex-wrap">
+        {/* First button is the primary action, the rest are ghost. */}
+        <div className="flex gap-2 mt-5 flex-wrap">
           {buttons.map((button, index) => (
             <a
-              key={index}
+              key={button.url}
               href={button.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`py-1 px-3 text-sm font-semibold rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white ${
-                buttons.length === 3 ? "w-1/3" : "w-1/2"
-              } text-center`}
+              className={`btn ${index === 0 ? "btn-primary" : "btn-ghost"}`}
             >
               {button.label}
+              <ArrowOut />
             </a>
           ))}
         </div>

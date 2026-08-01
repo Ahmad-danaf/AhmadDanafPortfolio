@@ -3,6 +3,7 @@ import { PROJECTS } from "@/constants";
 import {
   RxGithubLogo,
 } from "react-icons/rx";
+import { ArrowOut } from "@/components/sub/marks";
 
 export const Projects = () => {
   return (
@@ -45,9 +46,11 @@ export const Projects = () => {
           href="https://github.com/Ahmad-danaf"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center py-2 px-6 bg-black text-white rounded-full gap-2 text-lg font-semibold shadow-lg hover:bg-gray-800"
+          className="btn btn-primary btn-lg"
         >
-          <RxGithubLogo className="text-2xl" /> View More on GitHub
+          <RxGithubLogo className="text-base" />
+          More on GitHub
+          <ArrowOut />
         </a>
       </div>
     </section>

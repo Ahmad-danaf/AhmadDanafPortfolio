@@ -36,9 +36,10 @@ export const Skills = () => {
 
       <button
         onClick={() => setShowText(!showText)}
-         className="mb-5 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:bg-gradient-to-r hover:from-cyan-500 hover:to-purple-500 transition"
+        aria-pressed={showText}
+        className="btn btn-ghost mb-5"
       >
-        {showText ? 'Show Icons' : 'Show Text'}
+        {showText ? "Show icons" : "Show names"}
       </button>
 
       <AnimatePresence>

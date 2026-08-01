@@ -9,6 +9,7 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from "@/lib/motion";
+import { ArrowDown } from "@/components/sub/marks";
 
 export const HeroContent = () => {
   return (
@@ -53,9 +54,10 @@ export const HeroContent = () => {
         <motion.a
           href="#projects"
           variants={slideInFromLeft(1)}
-          className="py-2 px-4 md:px-6 button-primary text-center text-white cursor-pointer rounded-lg max-w-[150px] md:max-w-[200px]"
+          className="btn btn-primary btn-lg self-start"
         >
-          Learn more
+          See the projects
+          <ArrowDown />
         </motion.a>
       </div>
 

@@ -9,6 +9,9 @@ import {
 import { FaFilePdf } from "react-icons/fa"; 
 
 
+// Hides the navbar Resume link and the PDF social icon.
+export const SHOW_RESUME = false;
+
 export const SOCIALS = [
   {
     name: "LinkedIn",
@@ -232,8 +235,7 @@ export const PROJECTS = [
     image: "/projects/spacecodey.png",
     link: "https://www.spacecodey.com/",
     buttons: [
-      { label: "Site Link", url: "https://www.spacecodey.com/" },
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/SpaceCodey" },
+      { label: "Visit site", url: "https://www.spacecodey.com/" },
     ]
     
   },
@@ -244,8 +246,7 @@ export const PROJECTS = [
     image: "/projects/volunteen.png", 
     link: "https://www.linkedin.com/company/volunteen2024", 
     buttons: [
-      { label: "Site Link", url: "https://www.volunteen.site/" },
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/Volunteen" },
+      { label: "Visit site", url: "https://www.volunteen.site/" },
       { label: "LinkedIn", url: "https://www.linkedin.com/company/volunteen2024" }
     ]
   },
@@ -256,7 +257,7 @@ export const PROJECTS = [
     image: "/projects/sheet-cell.png",
     link: "https://github.com/Ahmad-danaf/Sheet-Cell",
     buttons: [
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/Sheet-Cell" },
+      { label: "Read the code", url: "https://github.com/Ahmad-danaf/Sheet-Cell" },
     ]
   },
   {
@@ -266,7 +267,7 @@ export const PROJECTS = [
     image: "/projects/flight-deal-finder.png",
     link: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub",
     buttons: [
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
+      { label: "Read the code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
     ]
   },
   {
@@ -276,7 +277,7 @@ export const PROJECTS = [
     image: "/projects/amazon-price-tracker.png",
     link: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub",
     buttons: [
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
+      { label: "Read the code", url: "https://github.com/Ahmad-danaf/FunLearn-Projects-Hub" },
     ]
   },
   {
@@ -286,7 +287,7 @@ export const PROJECTS = [
     image: "/projects/turtle-crossing.png",
     link: "https://github.com/Ahmad-danaf/GameDev",
     buttons: [
-      { label: "Source Code", url: "https://github.com/Ahmad-danaf/GameDev" },
+      { label: "Read the code", url: "https://github.com/Ahmad-danaf/GameDev" },
     ]
   },
 ] as const;

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { LINKS, NAV_LINKS, SOCIALS } from "@/constants";
+import { LINKS, NAV_LINKS, SHOW_RESUME, SOCIALS } from "@/constants";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa"; // Icon imports for mobile menu
 
@@ -48,20 +48,22 @@ export const Navbar = () => {
             ))}
 
             {/* Resume Link */}
-            <Link
-              href="/AhmadDanaf_Resume.pdf"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="cursor-pointer hover:text-[rgb(112,66,248)] transition"
-            >
-              Resume
-            </Link>
+            {SHOW_RESUME && (
+              <Link
+                href="/AhmadDanaf_Resume.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="cursor-pointer hover:text-[rgb(112,66,248)] transition"
+              >
+                Resume
+              </Link>
+            )}
           </div>
         </div>
 
         {/* Social Links */}
         <div className="flex gap-5">
-          {SOCIALS.map(({ link, name, icon: Icon }) => (
+          {SOCIALS.filter(({ name }) => SHOW_RESUME || name !== "Resume").map(({ link, name, icon: Icon }) => (
             <Link href={link} target="_blank" rel="noreferrer noopener" key={name}>
               <Icon className="h-6 w-6 text-white" />
             </Link>
