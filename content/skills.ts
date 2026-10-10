@@ -48,7 +48,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
   {
     title: "AI",
     skills: [
-      { name: "OpenAI API", icon: "openai.svg" },
+      { name: "OpenAI API / Codex", icon: "openai.svg" },
       { name: "Gemini API", icon: "gemini.svg" },
       { name: "Claude Code", icon: "claude.svg" },
     ],

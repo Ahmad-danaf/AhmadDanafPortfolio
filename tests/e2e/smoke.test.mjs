@@ -217,6 +217,17 @@ test("skills show every icon and the names toggle", async () => {
   await context.close();
 });
 
+test("footer is one compact block with section links and contact icons", async () => {
+  const { page, context } = await openPage();
+  const footer = page.locator("footer");
+  assert.deepEqual(await footer.locator("nav[aria-label='Site'] a").allInnerTexts(), ["Experience", "Projects", "Skills", "Contact"]);
+  assert.equal(await footer.locator(`a[aria-label="Email"][href="mailto:ahmad.danf@gmail.com"]`).count(), 1);
+  assert.equal(await footer.locator('a[aria-label="LinkedIn"]').count(), 1);
+  assert.equal(await footer.locator('a[aria-label="GitHub"]').count(), 1);
+  assert.match(await footer.innerText(), /Back to top/);
+  await context.close();
+});
+
 test("contact offers email, LinkedIn and GitHub, and no phone", async () => {
   const { page, context } = await openPage();
   assert.equal(await page.locator('#contact a[href="mailto:ahmad.danf@gmail.com"]').count(), 1);
