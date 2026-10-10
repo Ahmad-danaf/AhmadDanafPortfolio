@@ -108,13 +108,39 @@ test("navbar links point at the new sections", async () => {
   await context.close();
 });
 
-test("mobile menu fits and closes", async () => {
+test("phone menu is a panel with contact links that closes on a link, Escape or a tap outside", async () => {
   const { page, context } = await openPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-  await page.getByRole("button", { name: "Open menu" }).click();
-  const width = await page.locator("nav[aria-label='Primary']").evaluate((el) => el.getBoundingClientRect().width);
-  assert.ok(width <= 390, `menu is ${width}px wide`);
-  await page.locator("nav[aria-label='Primary'] a").first().click();
-  assert.equal(await page.locator("nav[aria-label='Primary']").isVisible(), false);
+  assert.ok(await page.getByText("Ahmad Danaf", { exact: true }).first().isVisible(), "name hidden on phones");
+  const menu = page.locator("#mobile-menu");
+  const open = page.getByRole("button", { name: "Open menu" });
+
+  await open.click();
+  const box = await menu.boundingBox();
+  assert.ok(box.x >= 0 && box.x + box.width <= 390, "menu overflows the screen");
+  for (const name of ["LinkedIn", "GitHub", "Email"]) {
+    assert.equal(await menu.locator(`a[aria-label="${name}"]`).count(), 1, name);
+  }
+  await menu.locator("nav[aria-label='Menu'] a").first().click();
+  assert.equal(await menu.count(), 0);
+
+  await open.click();
+  await page.keyboard.press("Escape");
+  assert.equal(await menu.count(), 0);
+
+  await open.click();
+  await page.mouse.click(195, 800);
+  assert.equal(await menu.count(), 0);
+  await context.close();
+});
+
+test("the navbar marks the section being read", async () => {
+  const { page, context } = await openPage();
+  await page.evaluate(() => document.querySelector("#projects").scrollIntoView());
+  const current = page.locator("nav[aria-label='Primary'] a[aria-current='true']");
+  // The page scrolls smoothly, so other sections light up on the way.
+  assert.ok(await until(async () => (await current.count()) === 1 && (await current.innerText()) === "Projects"), "Projects not marked");
+  await page.evaluate(() => window.scrollTo(0, 0));
+  assert.ok(await until(async () => (await current.count()) === 0), "a link stays marked in the hero");
   await context.close();
 });
 
