@@ -204,12 +204,14 @@ test("skills show every icon and the names toggle", async () => {
   const icons = await page.locator("#skills img").evaluateAll((imgs) =>
     imgs.map((i) => i.complete && i.naturalWidth > 0),
   );
-  assert.equal(icons.length, 25);
+  assert.equal(icons.length, 26);
   assert.ok(icons.every(Boolean));
   await page.getByRole("button", { name: "Show names" }).click();
   // The icon grid fades out before the list mounts.
-  await page.getByText("Cloud & DevOps: AWS", { exact: false }).waitFor();
-  assert.match(await page.locator("#skills").innerText(), /Cloud & DevOps: AWS, GitHub Actions, Linux, Nginx/);
+  const cloud = page.getByRole("list", { name: "Cloud & DevOps" });
+  await cloud.waitFor();
+  assert.deepEqual((await cloud.innerText()).split("\n").filter(Boolean), ["AWS", "GitHub Actions", "Linux", "Nginx"]);
+  assert.match(await page.locator("#skills").innerText(), /Claude Code/);
   assert.doesNotMatch(await page.locator("#skills").innerText(), /Azure|MySQL|Spring Boot|Docker/);
   assert.deepEqual(errors, []);
   await context.close();
