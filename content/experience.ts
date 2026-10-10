@@ -60,3 +60,7 @@ export const EXPERIENCE: readonly Role[] = [
     links: [],
   },
 ];
+
+// Smaller client work: one line under the timeline, as on the CV.
+export const EXPERIENCE_NOTE =
+  "Also built 3 WhatsApp chatbots for fitness and healthcare businesses, answering FAQs and booking appointments, some with AI-generated replies.";

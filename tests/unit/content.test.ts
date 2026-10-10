@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 
-import { EXPERIENCE } from "../../content/experience.ts";
+import { EXPERIENCE, EXPERIENCE_NOTE } from "../../content/experience.ts";
 import { PROJECTS } from "../../content/projects.ts";
 import {
   BEYOND_CODE,
@@ -18,7 +18,7 @@ import { SKILL_GROUPS } from "../../content/skills.ts";
 import { collectStrings } from "./helpers.ts";
 
 const ALL = collectStrings([
-  EXPERIENCE, PROJECTS, SITE, SOCIALS, NAV_LINKS, HERO, ID_CARD, CONTACT, BEYOND_CODE, SKILL_GROUPS,
+  EXPERIENCE, EXPERIENCE_NOTE, PROJECTS, SITE, SOCIALS, NAV_LINKS, HERO, ID_CARD, CONTACT, BEYOND_CODE, SKILL_GROUPS,
 ]);
 
 // Wording rules for everything the site prints.

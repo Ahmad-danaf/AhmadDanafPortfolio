@@ -4,7 +4,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 
 import { TimelineItem } from "@/components/sub/timeline-item";
-import { EXPERIENCE } from "@/content/experience";
+import { EXPERIENCE, EXPERIENCE_NOTE } from "@/content/experience";
 import { useMotionAllowed } from "@/lib/use-motion-allowed";
 
 export const Experience = () => {
@@ -31,6 +31,7 @@ export const Experience = () => {
           ))}
         </ol>
       </div>
+      <p className="mt-16 w-full max-w-3xl pl-10 text-gray-400 [text-wrap:balance] md:pl-0 md:text-center">{EXPERIENCE_NOTE}</p>
     </section>
   );
 };

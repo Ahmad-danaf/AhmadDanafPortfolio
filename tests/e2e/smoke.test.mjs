@@ -131,6 +131,7 @@ test("experience lists the three roles in order with the honest agent status", a
   const text = await page.locator("#experience").innerText();
   assert.match(text, /building the core of an AI agent/);
   assert.match(text, /8200 Alumni Association/);
+  assert.match(text, /3 WhatsApp chatbots for fitness and healthcare businesses/);
   assert.match(text, /4th place/);
   assert.equal(await page.locator("#experience [data-abstract-card]").count(), 1);
   assert.deepEqual(errors, []);
