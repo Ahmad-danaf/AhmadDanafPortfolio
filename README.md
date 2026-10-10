@@ -1,30 +1,21 @@
-# My Portfolio Website
+# Ahmad Danaf — Portfolio
 
-Welcome to my personal portfolio, showcasing my journey and projects as a **Software Engineer**. This site highlights my skills, experience, and key projects using modern technologies. [Visit the live site here](https://www.ahmaddanaf.com/).
+Source for [ahmaddanaf.com](https://www.ahmaddanaf.com): experience, projects and skills of a software engineer working on production web and mobile products.
 
-## Features
-- **Responsive Design**: Optimized for all devices.
-- **Modern UI**: Designed with a space theme using Next.js, TypeScript, and Tailwind CSS.
-- **Projects**: Highlighting my key projects such as SpaceCodey, Volunteen, and more.
+## Stack
+Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion, React Three Fiber. Deployed on Vercel.
 
-## Tech Stack
-- **Frontend**: React.js, Next.js, Tailwind CSS, TypeScript
-- **Backend**: Node.js, Express.js, Django
-- **Tools**: Docker, Git, AWS, Azure
+## Content
+All copy lives in typed data files under `content/`. `npm test` checks the wording rules (no unsupported skills, honest status wording).
 
-## Projects
-- **[SpaceCodey](https://www.spacecodey.com)**: A web app for astrophotography enthusiasts.
-- **[Volunteen](https://www.linkedin.com/company/volunteen2024)**: Platform for youth volunteering.
-- **[Sheet-Cell Project](https://github.com/Ahmad-danaf/Sheet-Cell)**: A spreadsheet engine built in Java.
-- **[Flight Deal Finder](https://github.com/Ahmad-danaf/FunLearn-Projects-Hub)**: Automates flight deal searching.
-- **[Amazon Price Tracker](https://github.com/Ahmad-danaf/FunLearn-Projects-Hub)**: Tracks Amazon prices for deals.
-- **[Turtle Crossing Game](https://github.com/Ahmad-danaf/GameDev)**: A fun Python game with increasing difficulty.
+## Media
+- `node scripts/media/capture.mjs [id]` — re-capture posters and loops of the live products.
+- `node scripts/media/encode.mjs poster|clip …` — encode raw images/videos for the web.
 
-## Deployment
-This portfolio is live! Check it out here: [Live Portfolio](https://www.ahmaddanaf.com/)
+## Scripts
+- `npm run dev` — local dev server
+- `npm test` — content and media checks
+- `npm run test:e2e` — production build + Playwright smoke tests
 
-Deployed using Vercel.
----
-
-### Acknowledgements
-This portfolio is based on the **Space Portfolio** project by [Sanidhyy](https://github.com/sanidhyy/space-portfolio), licensed under the MIT License.
+## Acknowledgements
+Based on the **Space Portfolio** project by [Sanidhyy](https://github.com/sanidhyy/space-portfolio), licensed under the MIT License.

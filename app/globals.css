@@ -1,11 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .cursive {
-  font-family: "Cedarville Cursive", cursive;
+  font-family: var(--font-cursive), cursive;
 }
 .Welcome-text {
   background: linear-gradient(
@@ -132,4 +130,37 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Star field: oversized tiled layers rotating on the compositor. */
+.star-layer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250vmax;
+  height: 250vmax;
+  margin-left: -125vmax;
+  margin-top: -125vmax;
+  background-image: url("/media/art/stars.webp");
+  background-repeat: repeat;
+  will-change: transform;
+}
+.star-layer-near {
+  background-size: 800px 800px;
+  animation: star-spin 240s linear infinite;
+}
+.star-layer-far {
+  background-size: 480px 480px;
+  opacity: 0.55;
+  animation: star-spin 420s linear infinite reverse;
+}
+@keyframes star-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .star-layer {
+    animation: none;
+  }
 }

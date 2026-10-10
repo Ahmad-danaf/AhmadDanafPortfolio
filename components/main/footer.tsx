@@ -1,40 +1,44 @@
 import Link from "next/link";
 
-import { FOOTER_DATA } from "@/constants";
+import { NAV_LINKS, SITE, SOCIALS } from "@/content/site";
 
 export const Footer = () => {
+  const connect = [
+    ...SOCIALS.filter((s) => s.name !== "Resume").map((s) => ({ name: s.name as string, url: s.url })),
+    { name: "Email", url: `mailto:${SITE.email}` },
+  ];
+
   return (
-    <div className="w-full h-full bg-transparent text-gray-200 shadow-lg p-[15px]">
-      <div className="w-full flex flex-col items-center justify-center m-auto">
-        <div className="w-full h-full flex flex-row items-center justify-around flex-wrap">
-          {FOOTER_DATA.map((column) => (
-            <div
-              key={column.title}
-              className="min-w-[200px] h-auto flex flex-col items-center justify-start"
-            >
-              <h3 className="font-bold text-[16px]">{column.title}</h3>
-              {column.data.map(({ icon: Icon, name, link }) => (
-                <Link
-                  key={`${column.title}-${name}`}
-                  href={link}
-                  // Conditionally add target="_blank" only for external links
-                  target={name === "About Me" ? undefined : "_blank"}
-                  rel="noreferrer noopener"
-                  className="flex flex-row items-center my-[15px]"
-                >
-                  {Icon && <Icon />}
-                  <span className="text-[15px] ml-[6px]">{name}</span>
-                </Link>
-              ))}
-
-            </div>
-          ))}
+    <footer className="w-full bg-transparent text-gray-200 p-[15px]">
+      <div className="w-full flex flex-col items-center m-auto">
+        <div className="w-full flex flex-row flex-wrap items-start justify-around gap-6">
+          <nav aria-label="Connect" className="min-w-[200px] flex flex-col items-center">
+            <h3 className="font-bold text-[16px]">Connect</h3>
+            {connect.map(({ name, url }) => (
+              <a
+                key={name}
+                href={url}
+                target={url.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer noopener"
+                className="my-[10px] text-[15px] hover:text-[rgb(112,66,248)] transition"
+              >
+                {name}
+              </a>
+            ))}
+          </nav>
+          <nav aria-label="Site" className="min-w-[200px] flex flex-col items-center">
+            <h3 className="font-bold text-[16px]">Site</h3>
+            {NAV_LINKS.map(({ title, link }) => (
+              <Link key={title} href={link} className="my-[10px] text-[15px] hover:text-[rgb(112,66,248)] transition">
+                {title}
+              </Link>
+            ))}
+          </nav>
         </div>
-
-        <div className="mb-[20px] text-[15px] text-center">
-          &copy; Ahmad Danaf {new Date().getFullYear()} Inc. All rights reserved.
-        </div>
+        <p className="mt-6 mb-[20px] text-[15px] text-center">
+          &copy; {SITE.name} {new Date().getFullYear()}
+        </p>
       </div>
-    </div>
+    </footer>
   );
 };

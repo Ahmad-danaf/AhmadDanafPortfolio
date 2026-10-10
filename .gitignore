@@ -34,3 +34,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw captures and generated art before encoding
+scripts/media/.raw/
+
+# superpowers plan workspaces and design notes (they name private facts)
+.superpowers/
+docs/superpowers/
+
+# content rules that name private facts
+*.local.json
