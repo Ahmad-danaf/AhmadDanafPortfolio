@@ -17,7 +17,7 @@ export const SkillDataProvider = ({ src, name, index }: SkillDataProviderProps) 
       transition={{ delay: index * 0.08 }}
       title={name}
     >
-      <Image src={`/skills/${src}`} width={64} height={64} alt={name} className="h-16 w-16 object-contain" />
+      <Image src={`/skills/${src}`} width={64} height={64} alt={name} className="h-[min(4rem,calc((100vw-7.25rem)/7))] w-[min(4rem,calc((100vw-7.25rem)/7))] object-contain md:h-16 md:w-16" />
     </motion.div>
   );
 };

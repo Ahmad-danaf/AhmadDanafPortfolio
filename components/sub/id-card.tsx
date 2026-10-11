@@ -22,18 +22,27 @@ const FACE =
 
 const Front = ({ turnedAway }: { turnedAway: boolean }) => (
   <div data-face="front" aria-hidden={turnedAway} className={cn(FACE, "flex flex-col")}>
-    <div className="relative h-32 shrink-0">
-      <Image src={ID_CARD.banner} alt="" fill sizes="320px" loading="eager" className="object-cover" />
+    {/* A strip on the tall desktop card; a faint backdrop on the wide phone card. */}
+    <div className="absolute inset-0 md:relative md:inset-auto md:h-32 md:shrink-0">
+      <Image
+        src={ID_CARD.banner}
+        alt=""
+        fill
+        sizes="(min-width: 768px) 320px, 352px"
+        priority
+        className="object-cover opacity-50 md:opacity-100"
+      />
       <BackgroundVideo
         src={ID_CARD.bannerLoop}
         media="(min-width: 768px)"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0c0524]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0c0524] via-[#0c0524]/80 to-[#0c0524]/20 md:bg-gradient-to-b md:from-transparent md:to-[#0c0524]" />
     </div>
 
-    <div className="relative z-10 -mt-16 flex flex-col items-center px-5 text-center">
-      <div className="rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 p-[3px] shadow-[0_0_24px_rgba(112,66,248,0.45)]">
+    {/* Phones: photo beside the details. Desktop: everything centred under the strip. */}
+    <div className="relative z-10 flex items-center gap-4 px-4 pt-4 md:-mt-16 md:flex-col md:gap-0 md:px-5 md:pt-0 md:text-center">
+      <div className="shrink-0 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 p-[3px] shadow-[0_0_24px_rgba(112,66,248,0.45)]">
         <Image
           src={ID_CARD.photo.src}
           alt={ID_CARD.photo.alt}
@@ -41,42 +50,45 @@ const Front = ({ turnedAway }: { turnedAway: boolean }) => (
           height={112}
           loading="eager"
           draggable={false}
-          className="h-28 w-28 rounded-full object-cover"
+          className="h-[4.75rem] w-[4.75rem] rounded-full object-cover md:h-28 md:w-28"
         />
       </div>
-      <p className="mt-3 text-xl font-semibold text-white">{ID_CARD.name}</p>
-      <p className="mt-1.5 rounded-full border border-[#7042f88b] bg-[#7042f8]/10 px-3 py-0.5 text-xs text-[#d8ccff]">
-        {ID_CARD.title}
-      </p>
+      <div className="min-w-0 md:contents">
+        <p className="text-lg font-semibold leading-tight text-white md:mt-3 md:text-xl">{ID_CARD.name}</p>
+        <p className="mt-1 inline-block rounded-full border border-[#7042f88b] bg-[#7042f8]/10 px-2.5 py-0.5 text-[11px] text-[#d8ccff] md:mt-1.5 md:px-3 md:text-xs">
+          {ID_CARD.title}
+        </p>
+
+        <dl className="mt-2 text-[11.5px] md:mt-5 md:self-stretch md:divide-y md:divide-white/10 md:rounded-lg md:border md:border-white/10 md:bg-white/[0.03] md:text-xs">
+          {ID_CARD.facts.map((fact) => (
+            <div key={fact.label} className="max-md:leading-[1.45] md:flex md:items-center md:justify-between md:gap-3 md:px-3 md:py-2">
+              {/* Phones show the values only; the labels stay for screen readers. */}
+              <dt className="max-md:sr-only text-[10px] uppercase tracking-[0.16em] text-gray-500">{fact.label}</dt>
+              <dd className="max-md:truncate font-medium text-gray-300 md:text-right md:text-gray-200">
+                {fact.href ? (
+                  <a
+                    href={fact.href}
+                    // A click on the link shouldn't also flip the card.
+                    onClick={(e) => e.stopPropagation()}
+                    className="underline decoration-[#7042f8]/60 underline-offset-2 hover:text-white"
+                  >
+                    {fact.value}
+                  </a>
+                ) : (
+                  fact.value
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
 
-    <dl className="mx-5 mt-5 divide-y divide-white/10 rounded-lg border border-white/10 bg-white/[0.03] text-xs">
-      {ID_CARD.facts.map((fact) => (
-        <div key={fact.label} className="flex items-center justify-between gap-3 px-3 py-2">
-          <dt className="text-[10px] uppercase tracking-[0.16em] text-gray-500">{fact.label}</dt>
-          <dd className="text-right font-medium text-gray-200">
-            {fact.href ? (
-              <a
-                href={fact.href}
-                // A click on the link shouldn't also flip the card.
-                onClick={(e) => e.stopPropagation()}
-                className="underline decoration-[#7042f8]/60 underline-offset-2 hover:text-white"
-              >
-                {fact.value}
-              </a>
-            ) : (
-              fact.value
-            )}
-          </dd>
-        </div>
-      ))}
-    </dl>
-
-    <div className="mt-auto px-5 pb-4 pt-3">
-      <div className="rounded-md bg-[#ece8ff] px-1 py-1.5 text-[#030014]">
-        <Barcode text={ID_CARD.barcode} className="h-9 w-full" />
+    <div className="relative mt-auto px-4 pb-3 md:px-5 md:pb-4 md:pt-3">
+      <div className="rounded-md bg-[#ece8ff] px-1 py-1 text-[#030014] md:py-1.5">
+        <Barcode text={ID_CARD.barcode} className="h-6 w-full md:h-9" />
       </div>
-      <p className="mt-1.5 text-center font-mono text-[10px] tracking-[0.3em] text-gray-500">
+      <p className="mt-1.5 hidden text-center font-mono text-[10px] tracking-[0.3em] text-gray-500 md:block">
         {ID_CARD.barcode.toLowerCase()}
       </p>
     </div>
@@ -85,7 +97,7 @@ const Front = ({ turnedAway }: { turnedAway: boolean }) => (
 
 const Back = ({ turnedAway }: { turnedAway: boolean }) => (
   <div data-face="back" aria-hidden={turnedAway} className={cn(FACE, "[transform:rotateY(180deg)]")}>
-    <Image src={ID_CARD.back.photo.src} alt={ID_CARD.back.photo.alt} fill sizes="320px" className="object-cover" />
+    <Image src={ID_CARD.back.photo.src} alt={ID_CARD.back.photo.alt} fill sizes="(min-width: 768px) 320px, 352px" className="object-cover" />
     <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-[#030014]/20 to-transparent" />
     <div className="absolute inset-x-0 bottom-0 p-5">
       <p className="text-[10px] uppercase tracking-[0.2em] text-[#b49bff]">{ID_CARD.back.label}</p>
@@ -108,14 +120,18 @@ export const IdCard = () => {
   const y = useMotionValue(0);
   const rotate = useTransform([x, y], ([dx, dy]: number[]) => tilt(dx, dy));
 
-  // On desktop the strap reaches up behind the navbar; on phones the card
-  // sits under the text, so the strap is short.
-  const strap = wide ? 520 : 96;
+  // The strap reaches up behind the navbar; on phones the card hangs just under it.
+  const strap = wide ? 520 : 110;
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!motionOn) return;
+    // Phones show the card at rest from the first paint, so it only sways (a drop would jump).
+    if (!window.matchMedia("(min-width: 768px)").matches) {
+      const sway = animate(x, [0, 26, -14, 6, 0], { duration: 2.6, ease: "easeInOut", delay: 0.5 });
+      return () => sway.stop();
+    }
     x.set(60);
     y.set(-240);
     const swing = animate(x, 0, { type: "spring", stiffness: 40, damping: 4, delay: 0.7 });
@@ -170,7 +186,7 @@ export const IdCard = () => {
             animate={{ rotateY: flipped ? 180 : 0 }}
             transition={{ type: "spring", stiffness: 140, damping: 18 }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative h-[29rem] w-80"
+            className="relative h-[12.5rem] w-[min(22rem,calc(100vw-2.5rem))] md:h-[29rem] md:w-80"
           >
             <Front turnedAway={flipped} />
             <Back turnedAway={!flipped} />
@@ -178,7 +194,7 @@ export const IdCard = () => {
         </div>
       </motion.div>
 
-      <div className="mt-6 flex h-8 items-center gap-3 text-xs text-gray-400">
+      <div className="mt-3 flex h-8 items-center gap-3 text-xs text-gray-400 md:mt-6">
         {mounted && (
           <>
             {motionOn && (

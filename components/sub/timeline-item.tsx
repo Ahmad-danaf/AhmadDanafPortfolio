@@ -18,17 +18,27 @@ export const TimelineItem = ({ item, side }: TimelineItemProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.25 }}
     transition={{ duration: 0.6 }}
-    className="relative grid gap-6 pl-10 md:grid-cols-2 md:gap-16 md:pl-0"
+    className={cn(
+      "relative grid gap-y-4 pl-8 md:grid-cols-2 md:gap-x-16 md:gap-y-3 md:pl-0",
+      // Phones: name, picture, details (no placeholder art). Desktop: text beside the picture.
+      item.media ? "[grid-template-areas:'head'_'media'_'body']" : "[grid-template-areas:'head'_'body']",
+      side === "left"
+        ? "md:[grid-template-areas:'head_media'_'body_media']"
+        : "md:[grid-template-areas:'media_head'_'media_body']",
+    )}
   >
     <span
       aria-hidden="true"
       className="absolute left-3 top-2 h-3 w-3 -translate-x-1/2 rounded-full bg-purple-400 shadow-[0_0_12px_#a78bfa] md:left-1/2"
     />
 
-    <div className={cn("flex flex-col gap-3", side === "right" && "md:order-2")}>
+    <div className="flex flex-col gap-3 [grid-area:head]">
       <p className="text-sm uppercase tracking-widest text-[#b49bff]">{item.dates}</p>
       <h3 className="text-2xl font-semibold text-white">{item.org}</h3>
       <p className="text-gray-200">{item.role}</p>
+    </div>
+
+    <div className="flex flex-col gap-3 [grid-area:body]">
       <p className="text-gray-400">{item.context}</p>
       <ul className="mt-2 list-disc space-y-2 pl-5 text-gray-300">
         {item.bullets.map((b) => (
@@ -73,7 +83,7 @@ export const TimelineItem = ({ item, side }: TimelineItemProps) => (
       )}
     </div>
 
-    <div className={cn(side === "right" && "md:order-1")}>
+    <div className={cn("[grid-area:media]", !item.media && "hidden md:block")}>
       {item.media ? (
         <MediaCard media={item.media} />
       ) : (

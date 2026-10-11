@@ -66,6 +66,7 @@ export const Navbar = () => {
               alt=""
               width={80}
               height={40}
+              priority
               draggable={false}
               className="h-10 w-20"
             />

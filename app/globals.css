@@ -164,3 +164,56 @@ html {
     animation: none;
   }
 }
+
+/* Hero entrance in CSS, so the text shows with the first paint instead of
+   waiting for JavaScript. Phones get a short rise; desktop slides in from the left. */
+.hero-in {
+  animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@media (min-width: 768px) {
+  .hero-in {
+    animation: hero-slide 0.5s ease-in-out both;
+    animation-delay: var(--d, 0s);
+  }
+  .hero-in-top {
+    animation-name: hero-drop;
+  }
+}
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes hero-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+@keyframes hero-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-in {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Both hero buttons share one row, and stack only when they can't fit. */
+  .hero-cta .btn {
+    flex: 1 1 auto;
+    gap: 0.375rem;
+    padding: 0.8125rem 0.625rem;
+    letter-spacing: 0.04em;
+  }
+  /* The card leads the page on phones, so it can't wait for JavaScript to fade in. */
+  .hero-card {
+    opacity: 1 !important;
+  }
+}

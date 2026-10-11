@@ -14,8 +14,8 @@ export const Experience = () => {
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   return (
-    <section id="experience" className="flex flex-col items-center px-5 py-20 md:px-10">
-      <h2 className="py-10 text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+    <section id="experience" className="flex flex-col items-center px-5 py-12 md:px-10 md:py-20">
+      <h2 className="pb-8 text-[40px] md:py-10 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
         Experience
       </h2>
       <div ref={ref} className="relative w-full max-w-5xl">
@@ -25,13 +25,13 @@ export const Experience = () => {
           style={motionOn ? { scaleY } : undefined}
           className="absolute left-3 top-0 h-full w-px origin-top bg-gradient-to-b from-purple-500 to-cyan-500 md:left-1/2"
         />
-        <ol className="flex flex-col gap-16">
+        <ol className="flex flex-col gap-12 md:gap-16">
           {EXPERIENCE.map((item, i) => (
             <TimelineItem key={item.id} item={item} side={i % 2 === 0 ? "left" : "right"} />
           ))}
         </ol>
       </div>
-      <p className="mt-16 w-full max-w-3xl pl-10 text-gray-400 [text-wrap:balance] md:pl-0 md:text-center">{EXPERIENCE_NOTE}</p>
+      <p className="mt-12 w-full max-w-3xl pl-8 text-gray-400 [text-wrap:balance] md:mt-16 md:pl-0 md:text-center">{EXPERIENCE_NOTE}</p>
     </section>
   );
 };

@@ -418,6 +418,15 @@ test("content is visible without JavaScript", async () => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
   await page.goto(BASE);
+  // The hero's entrance is CSS, so it runs without JavaScript too; let it finish.
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished),
+    ),
+  );
   // Opacity multiplies down the tree, so check every ancestor too.
   const hidden = await page.evaluate(() =>
     [...document.querySelectorAll('h1, [data-timeline-item], #projects article, [data-face="front"]')]
@@ -430,6 +439,101 @@ test("content is visible without JavaScript", async () => {
   );
   assert.equal(await page.locator('[data-face="front"]').count(), 1, "ID card is not server-rendered");
   assert.deepEqual(hidden, []);
+  await context.close();
+});
+
+const PHONE = { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true };
+const SMALL_PHONE = { viewport: { width: 360, height: 780 }, isMobile: true, hasTouch: true };
+
+test("on phones the hero shows before any JavaScript runs", async () => {
+  const context = await browser.newContext(PHONE);
+  const page = await context.newPage();
+  // Scripts never arrive (as on a slow phone), yet JavaScript is on, so <noscript> styles don't apply.
+  await page.route("**/_next/static/chunks/**", (route) => route.abort());
+  await page.goto(BASE, { waitUntil: "load" });
+  await page.waitForTimeout(1500);
+  const hidden = await page.evaluate(() =>
+    ["#about-me h1", "#about-me h1 + div", '#about-me a[href="#experience"]', '#about-me [data-face="front"]'].filter(
+      (sel) => {
+        let opacity = 1;
+        for (let n = document.querySelector(sel); n; n = n.parentElement) opacity *= Number(getComputedStyle(n).opacity);
+        return opacity < 0.99;
+      },
+    ),
+  );
+  assert.deepEqual(hidden, []);
+  await context.close();
+});
+
+test("on phones the card banner, the largest image on the first screen, loads at high priority", async () => {
+  const context = await browser.newContext(PHONE);
+  const page = await context.newPage();
+  const cdp = await context.newCDPSession(page);
+  await cdp.send("Network.enable");
+  const priorities = [];
+  cdp.on("Network.requestWillBeSent", ({ request }) => {
+    if (request.url.includes("card-banner.webp")) priorities.push(request.initialPriority);
+  });
+  await page.goto(BASE, { waitUntil: "load" });
+  assert.ok(priorities.length > 0, "the banner was not requested");
+  assert.equal(priorities[0], "High");
+  await context.close();
+});
+
+test("on phones the ID card comes first, as a wide card that fits the screen", async () => {
+  const { page, context } = await openPage(PHONE);
+  const { front } = await idCard(page);
+  const card = await settledBox(front);
+  const h1 = await page.locator("#about-me h1").boundingBox();
+  assert.ok(card.x >= 0 && card.x + card.width <= 390, "card overflows the screen");
+  assert.ok(card.width > card.height, `card is ${card.width}x${card.height}, not wide`);
+  assert.ok(card.y + card.height <= h1.y, "card is not above the headline");
+  await context.close();
+});
+
+test("on phones both hero buttons share one row", async () => {
+  const { page, context } = await openPage(SMALL_PHONE);
+  const tops = await page
+    .locator('#about-me a[href="#experience"], #about-me a[href="#contact"]')
+    .evaluateAll((links) => links.map((a) => Math.round(a.getBoundingClientRect().top)));
+  assert.equal(tops.length, 2);
+  assert.equal(tops[0], tops[1], "the buttons are stacked");
+  await context.close();
+});
+
+test("on phones every skill group stays one row, as on desktop", async () => {
+  const { page, context } = await openPage(SMALL_PHONE);
+  await page.locator("#skills").scrollIntoViewIfNeeded();
+  const rowsPerGroup = await page.locator("#skills h3").evaluateAll((titles) =>
+    titles.map((h) => new Set([...h.nextElementSibling.querySelectorAll("img")].map((i) => Math.round(i.getBoundingClientRect().top))).size),
+  );
+  assert.deepEqual(rowsPerGroup, [1, 1, 1, 1, 1]);
+  await context.close();
+});
+
+test("on phones each role's picture sits between its name and its details", async () => {
+  const { page, context } = await openPage(PHONE);
+  const roles = await page.locator("#experience [data-timeline-item]").evaluateAll((items) =>
+    items
+      .filter((li) => li.querySelector("img"))
+      .map((li) => {
+        const box = (sel) => {
+          const { top, bottom } = li.querySelector(sel).getBoundingClientRect();
+          return { top, bottom };
+        };
+        return { org: box("h3"), picture: box("img"), firstBullet: box("ul li"), name: li.querySelector("h3").textContent };
+      }),
+  );
+  assert.equal(roles.length, 2);
+  for (const r of roles) {
+    assert.ok(r.org.bottom <= r.picture.top && r.picture.bottom <= r.firstBullet.top, `${r.name}: picture is not between the name and the bullets`);
+  }
+  await context.close();
+});
+
+test("on phones roles without screenshots show no placeholder art", async () => {
+  const { page, context } = await openPage(PHONE);
+  assert.equal(await page.locator("#experience [data-abstract-card]").isVisible(), false);
   await context.close();
 });
 

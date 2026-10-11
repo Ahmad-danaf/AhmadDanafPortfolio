@@ -60,12 +60,13 @@ export const Skills = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-6 flex w-full flex-col items-center gap-8 px-5 z-10"
+            className="mt-6 flex w-full flex-col items-center gap-6 px-5 z-10 md:gap-8"
           >
             {SKILL_GROUPS.map((group) => (
               <div key={group.title} className="flex flex-col items-center gap-3">
                 <h3 className="text-sm uppercase tracking-widest text-[#b49bff]">{group.title}</h3>
-                <div className="flex flex-row flex-wrap items-center justify-center gap-5">
+                {/* Icons shrink on phones so each group stays one row, as on desktop. */}
+                <div className="flex flex-row flex-wrap items-center justify-center gap-3 md:gap-5">
                   {group.skills.map((skill, i) => (
                     <SkillDataProvider key={skill.name} src={skill.icon} name={skill.name} index={i} />
                   ))}
