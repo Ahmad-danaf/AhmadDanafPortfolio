@@ -12,9 +12,8 @@ const OUT = "public/media/captures";
 const VIEWPORT = { width: 1280, height: 800 };
 const TARGETS = [
   { id: "dilsever", url: "https://www.dilsever.com/" },
-  { id: "arabaiclub", url: "https://app.arabaiclub.com/" },
-  // Poster only: no scrolling.
-  { id: "volunteen", url: "https://www.volunteen.site/", clip: false },
+  { id: "arabaiclub", url: "https://arabaiclub.com/en/" },
+  { id: "volunteen", url: "https://www.volunteen.site/schools/?lang=en" },
 ];
 
 async function capture(browser, { id, url, clip = true }) {

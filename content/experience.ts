@@ -22,7 +22,8 @@ export const EXPERIENCE: readonly Role[] = [
     chips: ["Python", "Django", "PostgreSQL", "React Native", "Expo", "AWS", "OpenAI", "GitHub Actions"],
     media: {
       poster: "/media/captures/volunteen.webp",
-      alt: "Volunteen website",
+      video: "/media/captures/volunteen.webm",
+      alt: "Volunteen landing page for schools",
     },
     links: [{ label: "Visit site", url: "https://www.volunteen.site/" }],
   },
@@ -41,7 +42,7 @@ export const EXPERIENCE: readonly Role[] = [
     media: {
       poster: "/media/captures/arabaiclub.webp",
       video: "/media/captures/arabaiclub.webm",
-      alt: "Arab AI Club platform",
+      alt: "Arab AI Club landing page",
     },
     links: [{ label: "Visit platform", url: "https://app.arabaiclub.com/" }],
   },
