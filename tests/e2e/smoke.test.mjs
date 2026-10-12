@@ -374,7 +374,7 @@ test("server HTML contains the key content", async () => {
     "Founding Software Engineer", "send-rate gate", "personalized learning plans",
     "Dilsever", "xedown", "Sheet-Cell",
     "Let&#x27;s talk",
-    "8200 Alumni SCoTCH venture",
+    "Volunteen: 1 of 9 picked by 8200 Alumni",
   ]) {
     assert.ok(html.includes(text), `missing in SSR HTML: ${text}`);
   }
@@ -553,9 +553,9 @@ test("phones never download the desktop-only hero video", async () => {
 test("hero carries the proof line and the stats block is gone", async () => {
   const { page, context, errors } = await openPage();
   const hero = await page.locator("#about-me").innerText();
-  assert.match(hero, /iOS & Android apps in the stores/);
-  assert.match(hero, /API response 3\.8 s → under 300 ms/);
-  assert.match(hero, /Volunteen: 8200 Alumni SCoTCH venture/);
+  assert.match(hero, /Shipped to the App Store & Google Play/);
+  assert.match(hero, /API 3\.8 s → <300 ms \(900 queries → 3\)/);
+  assert.match(hero, /Volunteen: 1 of 9 picked by 8200 Alumni/);
   assert.equal(await page.locator("#stats").count(), 0);
   assert.deepEqual(errors, []);
   await context.close();

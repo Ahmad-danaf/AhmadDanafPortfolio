@@ -34,9 +34,9 @@ export const HERO = {
   personal: "Off the keyboard, I photograph the night sky.",
   // Results a recruiter can check, not repeated in the intro.
   proof: [
-    "iOS & Android apps in the stores",
-    "API response 3.8 s → under 300 ms",
-    "Volunteen: 8200 Alumni SCoTCH venture",
+    "Shipped to the App Store & Google Play",
+    "API 3.8 s → <300 ms (900 queries → 3)",
+    "Volunteen: 1 of 9 picked by 8200 Alumni",
   ],
 } as const;
 
