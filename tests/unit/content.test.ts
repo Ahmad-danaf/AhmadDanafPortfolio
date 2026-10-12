@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 
-import { EXPERIENCE, EXPERIENCE_NOTE } from "../../content/experience.ts";
+import { EXPERIENCE } from "../../content/experience.ts";
 import { PROJECTS } from "../../content/projects.ts";
 import {
   BEYOND_CODE,
@@ -18,7 +18,7 @@ import { SKILL_GROUPS } from "../../content/skills.ts";
 import { collectStrings } from "./helpers.ts";
 
 const ALL = collectStrings([
-  EXPERIENCE, EXPERIENCE_NOTE, PROJECTS, SITE, SOCIALS, NAV_LINKS, HERO, ID_CARD, CONTACT, BEYOND_CODE, SKILL_GROUPS,
+  EXPERIENCE, PROJECTS, SITE, SOCIALS, NAV_LINKS, HERO, ID_CARD, CONTACT, BEYOND_CODE, SKILL_GROUPS,
 ]);
 
 // Wording rules for everything the site prints.
@@ -47,20 +47,37 @@ test("no forbidden claims anywhere in the content", () => {
   }
 });
 
-test("experience is Volunteen, Arab AI Club, Meruba in that order", () => {
-  assert.deepEqual(EXPERIENCE.map((r) => r.id), ["volunteen", "arab-ai-club", "meruba"]);
+// Every block of work: Volunteen, then each freelance client.
+const WORKS = EXPERIENCE.flatMap((r) => ("clients" in r ? r.clients : [r]));
+
+test("experience is Volunteen, then one freelance entry, as on the CV", () => {
+  assert.deepEqual(EXPERIENCE.map((r) => r.id), ["volunteen", "freelance"]);
+  const freelance = EXPERIENCE.find((r) => r.id === "freelance")!;
+  assert.ok("clients" in freelance);
+  assert.deepEqual(freelance.clients.map((c) => c.id), ["meruba", "arab-ai-club", "small-business"]);
 });
 
-test("each role has 2-4 short bullets and a visual", () => {
-  for (const role of EXPERIENCE) {
-    assert.ok(role.bullets.length >= 2 && role.bullets.length <= 4, role.id);
-    for (const b of role.bullets) assert.ok(b.length <= 240, `${role.id}: bullet too long`);
-    assert.ok(role.media || role.mediaFallback, `${role.id}: needs media or mediaFallback`);
+test("each block of work has 1-4 short bullets", () => {
+  for (const work of WORKS) {
+    assert.ok(work.bullets.length >= 1 && work.bullets.length <= 4, work.id);
+    for (const b of work.bullets) assert.ok(b.length <= 240, `${work.id}: bullet too long`);
   }
 });
 
+test("only the small-business chatbots go without a visual", () => {
+  assert.deepEqual(WORKS.filter((w) => !w.media && !w.mediaFallback).map((w) => w.id), ["small-business"]);
+});
+
+test("Volunteen and Arab AI Club carry the CV's newer facts", () => {
+  const volunteen = WORKS.find((w) => w.id === "volunteen")!;
+  assert.ok(volunteen.bullets.some((b) => /multi-tenant/.test(b)));
+  assert.ok(volunteen.bullets.some((b) => /replacing manual deploys/.test(b)));
+  const club = WORKS.find((w) => w.id === "arab-ai-club")!;
+  assert.ok(club.bullets.some((b) => /account deletion/.test(b)));
+});
+
 test("the Volunteen agent stays present tense until it reaches production", () => {
-  const volunteen = EXPERIENCE.find((r) => r.id === "volunteen")!;
+  const volunteen = WORKS.find((r) => r.id === "volunteen")!;
   const agent = volunteen.bullets.find((b) => /AI agent/.test(b))!;
   assert.match(agent, /building the core of an AI agent/);
   assert.doesNotMatch(agent, /shipped|launched|in production/i);
@@ -83,7 +100,7 @@ test("AI-assisted projects disclose it", () => {
 
 test("links are https, mailto, or site-relative, and skip the toy repos", () => {
   const urls = [
-    ...EXPERIENCE.flatMap((r) => r.links.map((l) => l.url)),
+    ...WORKS.flatMap((w) => w.links.map((l) => l.url)),
     ...PROJECTS.flatMap((p) => p.links.map((l) => l.url)),
     ...SOCIALS.map((s) => s.url),
     ...NAV_LINKS.map((n) => n.link),

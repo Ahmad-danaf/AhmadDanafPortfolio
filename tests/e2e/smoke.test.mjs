@@ -150,14 +150,16 @@ test("open graph image is served", async () => {
   assert.match(res.headers.get("content-type") ?? "", /image\/png/);
 });
 
-test("experience lists the three roles in order with the honest agent status", async () => {
+test("experience lists Volunteen, then freelance clients, with the honest agent status", async () => {
   const { page, context, errors } = await openPage();
-  const orgs = await page.locator("#experience [data-timeline-item] h3").allInnerTexts();
-  assert.deepEqual(orgs, ["Volunteen", "Arab AI Club", "Meruba"]);
+  const roles = await page.locator("#experience [data-timeline-item] h3").allInnerTexts();
+  assert.deepEqual(roles, ["Volunteen", "Freelance"]);
+  const clients = await page.locator("#experience [data-timeline-item] h4").allInnerTexts();
+  assert.deepEqual(clients, ["Meruba", "Arab AI Club", "Small-business clients"]);
   const text = await page.locator("#experience").innerText();
   assert.match(text, /building the core of an AI agent/);
   assert.match(text, /8200 Alumni Association/);
-  assert.match(text, /3 WhatsApp chatbots for fitness and healthcare businesses/);
+  assert.match(text, /3 WhatsApp chatbots that answer FAQs and book appointments/);
   assert.match(text, /4th place/);
   assert.equal(await page.locator("#experience [data-abstract-card]").count(), 1);
   assert.deepEqual(errors, []);
@@ -511,17 +513,17 @@ test("on phones every skill group stays one row, as on desktop", async () => {
   await context.close();
 });
 
-test("on phones each role's picture sits between its name and its details", async () => {
+test("on phones each picture sits between its name and its details", async () => {
   const { page, context } = await openPage(PHONE);
-  const roles = await page.locator("#experience [data-timeline-item]").evaluateAll((items) =>
-    items
-      .filter((li) => li.querySelector("img"))
-      .map((li) => {
+  const roles = await page.locator("#experience [data-work]").evaluateAll((blocks) =>
+    blocks
+      .filter((el) => el.querySelector("img"))
+      .map((el) => {
         const box = (sel) => {
-          const { top, bottom } = li.querySelector(sel).getBoundingClientRect();
+          const { top, bottom } = el.querySelector(sel).getBoundingClientRect();
           return { top, bottom };
         };
-        return { org: box("h3"), picture: box("img"), firstBullet: box("ul li"), name: li.querySelector("h3").textContent };
+        return { org: box("h3, h4"), picture: box("img"), firstBullet: box("ul li"), name: el.querySelector("h3, h4").textContent };
       }),
   );
   assert.equal(roles.length, 2);

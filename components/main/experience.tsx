@@ -3,8 +3,8 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 
-import { TimelineItem } from "@/components/sub/timeline-item";
-import { EXPERIENCE, EXPERIENCE_NOTE } from "@/content/experience";
+import { FreelanceItem, TimelineItem } from "@/components/sub/timeline-item";
+import { EXPERIENCE } from "@/content/experience";
 import { useMotionAllowed } from "@/lib/use-motion-allowed";
 
 export const Experience = () => {
@@ -26,12 +26,16 @@ export const Experience = () => {
           className="absolute left-3 top-0 h-full w-px origin-top bg-gradient-to-b from-purple-500 to-cyan-500 md:left-1/2"
         />
         <ol className="flex flex-col gap-12 md:gap-16">
-          {EXPERIENCE.map((item, i) => (
-            <TimelineItem key={item.id} item={item} side={i % 2 === 0 ? "left" : "right"} />
-          ))}
+          {EXPERIENCE.map((item, i) => {
+            const side = i % 2 === 0 ? "left" : "right";
+            return "clients" in item ? (
+              <FreelanceItem key={item.id} item={item} side={side} />
+            ) : (
+              <TimelineItem key={item.id} item={item} side={side} />
+            );
+          })}
         </ol>
       </div>
-      <p className="mt-12 w-full max-w-3xl pl-8 text-gray-400 [text-wrap:balance] md:mt-16 md:pl-0 md:text-center">{EXPERIENCE_NOTE}</p>
     </section>
   );
 };

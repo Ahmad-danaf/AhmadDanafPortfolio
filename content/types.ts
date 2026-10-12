@@ -13,11 +13,10 @@ export type NavLink = { title: string; link: string };
 
 export type Social = { name: "LinkedIn" | "GitHub" | "Resume"; url: string };
 
-export type Role = {
+// One block of work: an employer, or one freelance client.
+export type Work = {
   id: string;
   org: string;
-  role: string;
-  dates: string;
   context: string;
   bullets: readonly string[];
   awards?: readonly string[]; // recognition, shown in one box
@@ -26,6 +25,11 @@ export type Role = {
   mediaFallback?: string; // shown on an abstract card when there are no public screenshots
   links: readonly LinkButton[];
 };
+
+export type Role = Work & { role: string; dates: string };
+
+// One timeline entry for all freelance work, divided by client as on the CV.
+export type FreelanceRole = { id: string; org: string; role: string; dates: string; clients: readonly Work[] };
 
 export type Project = {
   id: string;
