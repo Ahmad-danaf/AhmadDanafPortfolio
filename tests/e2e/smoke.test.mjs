@@ -373,7 +373,7 @@ test("server HTML contains the key content", async () => {
   for (const text of [
     "I ship web and mobile apps that real people use.",
     // Role-only strings: the org names also appear in the hero intro.
-    "Founding Software Engineer", "send-rate gate", "personalized learning plans",
+    "Founding Software Engineer", "recovers stuck campaigns", "personalized learning plans",
     "Dilsever", "xedown", "Sheet-Cell",
     "Let&#x27;s talk",
     "Volunteen: 1 of 9 picked by 8200 Alumni",
