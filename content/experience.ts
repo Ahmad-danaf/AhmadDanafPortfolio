@@ -10,13 +10,14 @@ export const EXPERIENCE: readonly (Role | FreelanceRole)[] = [
     dates: "Jan 2024 – present",
     context: "Early-stage EdTech startup that gamifies youth volunteering.",
     bullets: [
-      "Designed and own the Django backend, React Native (Expo) app and AWS production setup of a multi-tenant platform for schools and youth organizations, with per-institution data isolation and Hebrew, Arabic and English (RTL) support.",
-      "Built an OpenAI task-approval pipeline with an audit trail; building the core of an AI agent that drafts tasks from mentors' plain-language requests, with a human approving every change.",
-      "Cut a badge-listing endpoint's response time from 3.8 s to under 300 ms by reducing 900 database queries to 3.",
-      "Built the CI/CD pipeline in GitHub Actions: every change runs the test suite, and code that passes deploys to production on AWS automatically, replacing manual deploys.",
+      "Designed and built a Python/Django backend with REST APIs and shared business logic for web and mobile; manage AWS infrastructure (EC2, RDS PostgreSQL, S3, CloudWatch) and GitHub Actions CI/CD.",
+      "Cut recommendation API latency from ~5 s to 300 ms with batched database queries and precomputed results.",
+      "Built a tool-calling AI agent (OpenAI) that turns mentor requests into draft tasks and programs for human approval; automated review of task submissions.",
+      "Designed and built task submission and approval workflows for web and React Native (Expo), enabling mentors to configure completion requirements and review submissions.",
+      "Introduced a background job queue for notifications, recurring task creation and AI reviews, keeping slow operations out of user requests.",
     ],
     awards: [
-      "Selected for SCoTCH, the 8200 Alumni Association's social-cohesion program (1 of 9 ventures)",
+      "Selected for SCoTCH, the 8200 Alumni Association's social-cohesion program (1 of 9 ventures, ₪50K grant)",
       "Sharq Tank finalist",
       "4th place, Computer Science Project Exhibition, The Academic College of Tel-Aviv-Yaffo (2024)",
     ],
@@ -49,11 +50,11 @@ export const EXPERIENCE: readonly (Role | FreelanceRole)[] = [
       {
         id: "arab-ai-club",
         org: "Arab AI Club",
-        context: "Arabic AI-education platform with paid memberships.",
+        context: "Arabic AI-education community with 1,000+ members in 17 countries.",
         bullets: [
-          "Launched the platform on iOS and Android (Capacitor, Fastlane), taking both apps through App Store and Google Play review; added RevenueCat in-app subscriptions and store-required account deletion.",
+          "Launched the platform on iOS and Android, taking both apps through App Store and Google Play review; added RevenueCat in-app subscriptions and store-required account deletion.",
           "Rebuilt the main screens (Next.js, React) in a full redesign and built personalized learning plans for subscribers.",
-          "Built daily AI-personalized push notifications (Firebase, Gemini), passwordless email sign-in and a moderated content library; introduced the platform's automated tests.",
+          "Built daily AI-personalized push notifications (Firebase, Gemini), passwordless email sign-in and a moderated content library; wrote the platform's automated tests.",
         ],
         chips: ["Next.js", "React", "TypeScript", "Firebase", "Capacitor", "Fastlane", "Gemini"],
         media: {

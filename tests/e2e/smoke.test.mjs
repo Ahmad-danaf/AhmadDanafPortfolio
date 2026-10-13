@@ -150,14 +150,14 @@ test("open graph image is served", async () => {
   assert.match(res.headers.get("content-type") ?? "", /image\/png/);
 });
 
-test("experience lists Volunteen, then freelance clients, with the honest agent status", async () => {
+test("experience lists Volunteen, then freelance clients", async () => {
   const { page, context, errors } = await openPage();
   const roles = await page.locator("#experience [data-timeline-item] h3").allInnerTexts();
   assert.deepEqual(roles, ["Volunteen", "Freelance"]);
   const clients = await page.locator("#experience [data-timeline-item] h4").allInnerTexts();
   assert.deepEqual(clients, ["Meruba", "Arab AI Club", "Small-business clients"]);
   const text = await page.locator("#experience").innerText();
-  assert.match(text, /building the core of an AI agent/);
+  assert.match(text, /tool-calling AI agent \(OpenAI\)/);
   assert.match(text, /8200 Alumni Association/);
   assert.match(text, /3 WhatsApp chatbots that answer FAQs and book appointments/);
   assert.match(text, /4th place/);
@@ -556,7 +556,7 @@ test("hero carries the proof line and the stats block is gone", async () => {
   const { page, context, errors } = await openPage();
   const hero = await page.locator("#about-me").innerText();
   assert.match(hero, /Shipped to the App Store & Google Play/);
-  assert.match(hero, /API 3\.8 s → <300 ms \(900 queries → 3\)/);
+  assert.match(hero, /Recommendation API ~5 s → 300 ms/);
   assert.match(hero, /Volunteen: 1 of 9 picked by 8200 Alumni/);
   assert.equal(await page.locator("#stats").count(), 0);
   assert.deepEqual(errors, []);

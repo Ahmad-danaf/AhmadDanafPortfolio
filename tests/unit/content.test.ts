@@ -57,9 +57,9 @@ test("experience is Volunteen, then one freelance entry, as on the CV", () => {
   assert.deepEqual(freelance.clients.map((c) => c.id), ["meruba", "arab-ai-club", "small-business"]);
 });
 
-test("each block of work has 1-4 short bullets", () => {
+test("each block of work has 1-5 short bullets", () => {
   for (const work of WORKS) {
-    assert.ok(work.bullets.length >= 1 && work.bullets.length <= 4, work.id);
+    assert.ok(work.bullets.length >= 1 && work.bullets.length <= 5, work.id);
     for (const b of work.bullets) assert.ok(b.length <= 240, `${work.id}: bullet too long`);
   }
 });
@@ -70,17 +70,17 @@ test("only the small-business chatbots go without a visual", () => {
 
 test("Volunteen and Arab AI Club carry the CV's newer facts", () => {
   const volunteen = WORKS.find((w) => w.id === "volunteen")!;
-  assert.ok(volunteen.bullets.some((b) => /multi-tenant/.test(b)));
-  assert.ok(volunteen.bullets.some((b) => /replacing manual deploys/.test(b)));
+  assert.ok(volunteen.bullets.some((b) => /~5 s to 300 ms/.test(b)));
+  assert.ok(volunteen.bullets.some((b) => /background job queue/.test(b)));
   const club = WORKS.find((w) => w.id === "arab-ai-club")!;
+  assert.ok(volunteen.awards?.some((a) => /₪50K grant/.test(a)));
+  assert.match(club.context, /1,000\+ members in 17 countries/);
   assert.ok(club.bullets.some((b) => /account deletion/.test(b)));
 });
 
-test("the Volunteen agent stays present tense until it reaches production", () => {
+test("Volunteen leaves out the claims the CV dropped", () => {
   const volunteen = WORKS.find((r) => r.id === "volunteen")!;
-  const agent = volunteen.bullets.find((b) => /AI agent/.test(b))!;
-  assert.match(agent, /building the core of an AI agent/);
-  assert.doesNotMatch(agent, /shipped|launched|in production/i);
+  for (const b of volunteen.bullets) assert.doesNotMatch(b, /multi-tenant|900|3\.8 s/, b);
 });
 
 test("the hero badge uses the CV and card title", () => {
