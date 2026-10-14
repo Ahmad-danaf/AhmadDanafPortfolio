@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon, CheckIcon, Square2StackIcon } from "@heroicons/react/24/outline";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
@@ -19,6 +19,58 @@ const tilt = (x: number, y: number) => (-Math.atan2(x, PENDULUM + y) * 180) / Ma
 const FACE =
   "absolute inset-0 overflow-hidden rounded-2xl border border-[#7042f88b] bg-[#0c0524] " +
   "shadow-[0_0_50px_-12px_rgba(112,66,248,0.6)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]";
+
+// Copies the text and shows a tick for a moment. Falls back to a hidden textarea
+// where the Clipboard API is missing (older mobile browsers, non-https previews).
+const CopyButton = ({ text, label }: { text: string; label: string }) => {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    setCopied(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 1600);
+  };
+
+  const Icon = copied ? CheckIcon : Square2StackIcon;
+  return (
+    <button
+      type="button"
+      aria-label={copied ? "Copied" : label}
+      title={copied ? "Copied" : label}
+      // A tap on the button shouldn't also flip or drag the card.
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        void copy();
+      }}
+      className={cn(
+        "relative -my-1 shrink-0 rounded p-1 transition after:absolute after:-inset-1.5 hover:bg-white/10 hover:text-white",
+        copied ? "text-emerald-400" : "text-gray-400",
+      )}
+    >
+      <Icon aria-hidden="true" className="h-3.5 w-3.5" />
+      <span aria-live="polite" className="sr-only">
+        {copied ? "Email copied" : ""}
+      </span>
+    </button>
+  );
+};
 
 const Front = ({ turnedAway }: { turnedAway: boolean }) => (
   <div data-face="front" aria-hidden={turnedAway} className={cn(FACE, "flex flex-col")}>
@@ -64,20 +116,21 @@ const Front = ({ turnedAway }: { turnedAway: boolean }) => (
             <div key={fact.label} className="max-md:leading-[1.45] md:flex md:items-center md:justify-between md:gap-3 md:px-3 md:py-2">
               {/* Phones show the values only; the labels stay for screen readers. */}
               <dt className="max-md:sr-only text-[10px] uppercase tracking-[0.16em] text-gray-500">{fact.label}</dt>
-              <dd className="max-md:truncate font-medium text-gray-300 md:text-right md:text-gray-200">
-                {fact.href ? (
+              {fact.href ? (
+                <dd className="flex min-w-0 items-center gap-1 font-medium text-gray-300 md:justify-end md:text-gray-200">
                   <a
                     href={fact.href}
                     // A click on the link shouldn't also flip the card.
                     onClick={(e) => e.stopPropagation()}
-                    className="underline decoration-[#7042f8]/60 underline-offset-2 hover:text-white"
+                    className="truncate underline decoration-[#7042f8]/60 underline-offset-2 hover:text-white"
                   >
                     {fact.value}
                   </a>
-                ) : (
-                  fact.value
-                )}
-              </dd>
+                  <CopyButton text={fact.value} label={`Copy ${fact.label.toLowerCase()}`} />
+                </dd>
+              ) : (
+                <dd className="max-md:truncate font-medium text-gray-300 md:text-right md:text-gray-200">{fact.value}</dd>
+              )}
             </div>
           ))}
         </dl>
